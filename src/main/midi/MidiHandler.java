@@ -1,4 +1,4 @@
-package main;
+package main.midi;
 
 import javax.sound.midi.*;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MidiHandler {
 
-    private final Sequencer sequencer1 = MidiSystem.getSequencer();
+    private final Sequencer sequencer = MidiSystem.getSequencer();
     private Transmitter transmitter;
     private Receiver receiver;
 
@@ -28,10 +28,10 @@ public class MidiHandler {
 
         inputDevice.open();
 
-        sequencer1.open();
+        sequencer.open();
 
         transmitter = inputDevice.getTransmitter();
-        receiver = sequencer1.getReceiver();
+        receiver = sequencer.getReceiver();
 
         transmitter.setReceiver(receiver);
 
@@ -39,18 +39,18 @@ public class MidiHandler {
 
         Track track = sequence.createTrack();
 
-        sequencer1.setSequence(sequence);
-        sequencer1.setTickPosition(0);
-        sequencer1.recordEnable(track, -1);
+        sequencer.setSequence(sequence);
+        sequencer.setTickPosition(0);
+        sequencer.recordEnable(track, -1);
 
-        sequencer1.startRecording();
+        sequencer.startRecording();
 
     }
 
     public void stopRecord() throws IOException {
-        sequencer1.stopRecording();
+        sequencer.stopRecording();
 
-        Sequence sequence = sequencer1.getSequence();
+        Sequence sequence = sequencer.getSequence();
 
         if (new File("src/files/" + fileName).exists()) {
             MidiSystem.write(sequence, 0, new File("src/files/" + fileName + fileNumCount + ".mid"));
@@ -59,7 +59,13 @@ public class MidiHandler {
         else {
             MidiSystem.write(sequence, 0, new File("src/files/" + fileName + ".mid"));
         }
+    }
 
+    public boolean hasName() {
+        return fileName == null;
+    }
 
+    public Sequencer getSequencer() {
+        return sequencer;
     }
 }
