@@ -10,6 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MenuBar {
 
@@ -18,6 +20,7 @@ public class MenuBar {
     private JMenuBar menuBar;
     private JMenu play;
     private JMenu record;
+    private JMenu help;
 
     private JMenuItem listenFile;
     private JMenuItem selectFile;
@@ -27,10 +30,13 @@ public class MenuBar {
     private JMenuItem stopSound;
     private JMenuItem nameFile;
 
+    private JMenuItem shortcuts;
+    private JMenuItem about;
+
     private MidiFile file = null;
     private MidiHandler midiHandler = new MidiHandler();
 
-
+    private static ArrayList<JMenuItem> menuItems = new ArrayList<>();
 
     public MenuBar(JFrame frame) throws MidiUnavailableException {
         parentFrame = frame;
@@ -41,6 +47,7 @@ public class MenuBar {
 
         play = new JMenu("Play");
         record = new JMenu("Record");
+        help = new JMenu("Help");
 
         listenFile = new JMenuItem("Listen");
         selectFile = new JMenuItem("Select File");
@@ -49,6 +56,21 @@ public class MenuBar {
         recordSound = new JMenuItem("Record");
         stopSound = new JMenuItem("Stop");
         nameFile = new JMenuItem("Name File");
+
+        shortcuts = new JMenuItem("Shortcuts");
+        about = new JMenuItem("About");
+
+        menuItems.add(listenFile);
+        menuItems.add(selectFile);
+        menuItems.add(stopFile);
+
+        menuItems.add(recordSound);
+        menuItems.add(stopSound);
+        menuItems.add(nameFile);
+
+        menuItems.add(shortcuts);
+        menuItems.add(about);
+
 
         //Event Listening
         listenFile.addActionListener(e -> {
@@ -118,6 +140,10 @@ public class MenuBar {
             midiHandler.setFileName(name);
         });
 
+        shortcuts.addActionListener(e -> {
+            JOptionPane.showMessageDialog(parentFrame, "CRTL + 1: \nListen\nCRTL + 2: \nStop Listening\nCRTL + 3: \nSelect File\nCRTL + 4: \nRecord\nCRTL + 5: \nStop Recording\nCRTL + 6: \nName File");
+        });
+
         play.add(listenFile);
         play.add(stopFile);
         play.add(selectFile);
@@ -126,10 +152,18 @@ public class MenuBar {
         record.add(stopSound);
         record.add(nameFile);
 
+        help.add(shortcuts);
+        help.add(about);
+
         menuBar.add(play);
         menuBar.add(record);
+        menuBar.add(help);
 
         return menuBar;
+    }
+
+    public static ArrayList<JMenuItem> getMenuItems() {
+        return menuItems;
     }
 
 }

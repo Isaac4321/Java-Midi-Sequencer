@@ -1,6 +1,7 @@
 package main;
 
 import main.format.MenuBar;
+import main.listeners.ShortCuts;
 
 import javax.sound.midi.*;
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class Main
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
 
+        frame.addKeyListener(new ShortCuts());
         frame.setJMenuBar(new MenuBar(frame).createMenu());
         frame.setLayout(new FlowLayout());
         frame.setVisible(true);
