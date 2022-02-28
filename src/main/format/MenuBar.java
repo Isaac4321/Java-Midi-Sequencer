@@ -141,7 +141,7 @@ public class MenuBar {
         });
 
         shortcuts.addActionListener(e -> {
-            JOptionPane.showMessageDialog(parentFrame, "CRTL + 1: \nListen\nCRTL + 2: \nStop Listening\nCRTL + 3: \nSelect File\nCRTL + 4: \nRecord\nCRTL + 5: \nStop Recording\nCRTL + 6: \nName File");
+            JOptionPane.showMessageDialog(parentFrame, "CRTL + 1: \nListen\nCRTL + 2: \nStop Listening\nCRTL + 3: \nSelect File\nCRTL + 4: \nRecord\nCRTL + 5: \nStop Recording\nCRTL + 6: \nName File", "Shortcuts", JOptionPane.INFORMATION_MESSAGE);
         });
 
         play.add(listenFile);
